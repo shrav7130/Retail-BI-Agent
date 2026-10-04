@@ -1,0 +1,12 @@
+pandas
+numpy
+psycopg2-binary
+python-dotenv
+langchain>=1.0
+langchain-openai>=1.0
+langchain-text-splitters
+fastembed
+fastapi
+uvicorn
+httpx
+pytest

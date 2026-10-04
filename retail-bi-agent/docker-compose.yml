@@ -1,0 +1,21 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16        # Postgres 16 + pgvector (needed for RAG on Day 2)
+    container_name: retail_bi_db
+    environment:
+      POSTGRES_USER: bi_admin
+      POSTGRES_PASSWORD: bi_admin_pass
+      POSTGRES_DB: retail_bi
+    ports:
+      - "5432:5432"                      # change to "5433:5432" if you already run local Postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d   # runs only on FIRST start (empty volume)
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bi_admin -d retail_bi"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pgdata:
